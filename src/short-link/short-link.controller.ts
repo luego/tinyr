@@ -1,8 +1,12 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { CreateShortLinkDto } from './dto/CreateShortLink.dto';
+import { Prisma } from '@prisma/client';
+import { ShortLinkService } from './short-link.service';
 
 @Controller('shortlinks')
 export class ShortLinkController {
+  constructor(private readonly shortLinkService: ShortLinkService) {}
   @Post()
-  create(@Body() createShortLinkDto: CreateShortLinkDto) {}
+  create(@Body() createShortLinkDto: Prisma.ShortLinkCreateInput) {
+    return this.shortLinkService.create(createShortLinkDto);
+  }
 }

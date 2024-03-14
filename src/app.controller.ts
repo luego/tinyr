@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, Redirect } from '@nestjs/common';
 import { ShortLinkService } from './short-link/short-link.service';
 
 @Controller()
@@ -11,7 +11,8 @@ export class AppController {
   }
 
   @Get(':slug')
-  redirectShortLink(@Param('slug') slug: string): string {
-    return this.shortLinkService.redirect(slug);
+  async redirectShortLink(@Param('slug') slug: string) {
+    const shortLink = await this.shortLinkService.findOne(slug);
+    Redirect(shortLink.url);
   }
 }

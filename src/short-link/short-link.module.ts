@@ -4,6 +4,6 @@ import { ShortLinkController } from './short-link.controller';
 
 @Module({
   providers: [ShortLinkService],
-  controllers: [ShortLinkController]
+  controllers: [ShortLinkController],
 })
 export class ShortLinkModule {}
