@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  nest-postgres-shortlink:
+    image: postgres:14
+    container_name: nest-postgres-shortlink
+    restart: always
+    ports:
+      - '5432:5432'
+    env_file:
+      - .env
+    volumes:
+      - nest-postgres-shortlink:/var/lib/postgresql/data
+
+volumes:
+  nest-postgres-shortlink:
+    name: nest-postgres-shortlink
