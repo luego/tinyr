@@ -20,4 +20,14 @@ model ShortLink {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   isActive  Boolean  @default(true)
+  Visit     Visit[]
+}
+
+model Visit {
+  id          Int       @id @default(autoincrement())
+  country     String
+  countryCode String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  shortLink   ShortLink @relation(fields: [id], references: [id])
 }
