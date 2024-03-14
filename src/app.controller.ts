@@ -1,12 +1,17 @@
-import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
+import { Controller, Get, Param } from '@nestjs/common';
+import { ShortLinkService } from './short-link/short-link.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly shortLinkService: ShortLinkService) {}
 
   @Get()
   getHello(): string {
-    return this.appService.getHello();
+    return '404 Not found';
+  }
+
+  @Get(':slug')
+  redirectShortLink(@Param('slug') slug: string): string {
+    return this.shortLinkService.redirect(slug);
   }
 }
