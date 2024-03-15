@@ -11,8 +11,9 @@ export class AppController {
   }
 
   @Get(':slug')
+  @Redirect('null', 302)
   async redirectShortLink(@Param('slug') slug: string) {
     const shortLink = await this.shortLinkService.findOne(slug);
-    Redirect(shortLink.url);
+    return { url: shortLink.url };
   }
 }

@@ -8,7 +8,7 @@ export class ShortLinkService {
   constructor(private readonly database: PrismaService) {}
 
   async create(createShortLinkDto: Prisma.ShortLinkCreateInput) {
-    const uid = new ShortUniqueId({ length: 10 });
+    const uid = new ShortUniqueId({ length: 6 });
     createShortLinkDto.slug = uid.rnd();
 
     return this.database.shortLink.create({ data: createShortLinkDto });
