@@ -29,5 +29,6 @@ model Visit {
   countryCode String
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
-  shortLink   ShortLink @relation(fields: [id], references: [id])
+  shortLink   ShortLink @relation(fields: [shortLinkId], references: [id])
+  shortLinkId Int
 }
