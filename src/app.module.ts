@@ -7,6 +7,7 @@ import { VisitModule } from './visit/visit.module';
 import { HttpModule } from '@nestjs/axios';
 import { HelpersModule } from '@app/helpers';
 import { VisitService } from './visit/visit.service';
+import { StatisticModule } from './statistic/statistic.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { VisitService } from './visit/visit.service';
     VisitModule,
     HttpModule,
     HelpersModule,
+    StatisticModule,
   ],
   controllers: [AppController],
   providers: [ShortLinkService, PrismaService, VisitService],

@@ -21,7 +21,7 @@ export class AppController {
   @Redirect('null', 302)
   async redirectShortLink(@Param('slug') slug: string, @Ip() ip: string) {
     const shortLink = await this.shortLinkService.findOne(slug);
-    const ipResponse = await this.helpers.find(ip);
+    const ipResponse = await this.helpers.find('24.48.0.1');
     const visit: VisitDto = {
       shortLinkId: shortLink.id,
       country: ipResponse.country,
