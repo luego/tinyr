@@ -3,6 +3,7 @@ import { ShortLinkService } from './short-link/short-link.service';
 import { HelpersService } from '@app/helpers';
 import { VisitService } from './visit/visit.service';
 import { VisitDto } from './visit/dto/visit.dto';
+import { FindOneShortLinkDto } from './short-link/dto/findone-short-link.dto';
 
 @Controller()
 export class AppController {
@@ -19,15 +20,17 @@ export class AppController {
 
   @Get(':slug')
   @Redirect('null', 302)
-  async redirectShortLink(@Param('slug') slug: string, @Ip() ip: string) {
-    const shortLink = await this.shortLinkService.findOne(slug);
-    const ipResponse = await this.helpers.find('24.48.0.1');
+  async redirectShortLink(
+    @Param() params: FindOneShortLinkDto,
+    @Ip() ip: string,
+  ) {
+    const shortLink = await this.shortLinkService.findOne(params.slug);
+    const ipResponse = await this.helpers.find(ip);
     const visit: VisitDto = {
       shortLinkId: shortLink.id,
       country: ipResponse.country,
       countryCode: ipResponse.countryCode,
     };
-    console.log(ipResponse);
 
     this.visitService.create(visit);
 

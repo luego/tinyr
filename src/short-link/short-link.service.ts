@@ -1,17 +1,21 @@
 import { Injectable } from '@nestjs/common';
-import { Prisma } from '@prisma/client';
 import { PrismaService } from 'nestjs-prisma';
 import ShortUniqueId from 'short-unique-id';
+import { CreateShortLinkDto } from './dto/create-short-link.dto';
 
 @Injectable()
 export class ShortLinkService {
   constructor(private readonly database: PrismaService) {}
 
-  async create(createShortLinkDto: Prisma.ShortLinkCreateInput) {
+  async create({ url }: CreateShortLinkDto) {
     const uid = new ShortUniqueId({ length: 6 });
-    createShortLinkDto.slug = uid.rnd();
-
-    return this.database.shortLink.create({ data: createShortLinkDto });
+    const slug = uid.rnd();
+    return this.database.shortLink.create({
+      data: {
+        url,
+        slug,
+      },
+    });
   }
 
   async findOne(slug: string) {
