@@ -11,7 +11,7 @@ export class StatisticController {
     private readonly shortLinkService: ShortLinkService,
   ) {}
 
-  @Get(':slug')
+  @Get('/fetch/:slug')
   async getStatistic(
     @Param() params: FindOneStatisticsDto,
   ): Promise<StatisticDto[]> {

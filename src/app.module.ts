@@ -8,9 +8,11 @@ import { HttpModule } from '@nestjs/axios';
 import { HelpersModule } from '@app/helpers';
 import { VisitService } from './visit/visit.service';
 import { StatisticModule } from './statistic/statistic.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
     PrismaModule,
     ShortLinkModule,
     VisitModule,

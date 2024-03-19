@@ -1,7 +1,6 @@
-import { IsNotEmpty, Min } from 'class-validator';
+import { IsNotEmpty } from 'class-validator';
 
 export class FindOneStatisticsDto {
   @IsNotEmpty()
-  @Min(6)
   slug: string;
 }
