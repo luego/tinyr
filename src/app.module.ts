@@ -1,8 +1,8 @@
-import { Module } from '@nestjs/common';
+import { Logger, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { ShortLinkModule } from './short-link/short-link.module';
 import { ShortLinkService } from './short-link/short-link.service';
-import { PrismaModule, PrismaService } from 'nestjs-prisma';
+import { PrismaModule, PrismaService, loggingMiddleware } from 'nestjs-prisma';
 import { VisitModule } from './visit/visit.module';
 import { HttpModule } from '@nestjs/axios';
 import { HelpersModule } from '@app/helpers';
@@ -13,7 +13,19 @@ import { ConfigModule } from '@nestjs/config';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    PrismaModule,
+    PrismaModule.forRoot({
+      isGlobal: true,
+      prismaServiceOptions: {
+        middlewares: [
+          // configure your prisma middleware
+          loggingMiddleware({
+            logger: new Logger('PrismaMiddleware'),
+            logLevel: 'log',
+          }),
+        ],
+      },
+    }),
+
     ShortLinkModule,
     VisitModule,
     HttpModule,
