@@ -1,4 +1,10 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  HttpException,
+  HttpStatus,
+  Param,
+} from '@nestjs/common';
 import { StatisticService } from './statistic.service';
 import { StatisticDto } from './dto/statistic.dto';
 import { ShortLinkService } from 'src/short-link/short-link.service';
@@ -16,6 +22,9 @@ export class StatisticController {
     @Param() params: FindOneStatisticsDto,
   ): Promise<StatisticDto[]> {
     const shortLink = await this.shortLinkService.findOne(params.slug);
+    if (shortLink == null) {
+      throw new HttpException('ShortLink not found', HttpStatus.BAD_REQUEST);
+    }
     const visits = await this.statisticService.getStatistic(shortLink.id);
     const visitReponse: StatisticDto[] = [];
     visits.map((visit) =>
