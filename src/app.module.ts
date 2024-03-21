@@ -1,4 +1,9 @@
-import { Logger, Module } from '@nestjs/common';
+import {
+  Logger,
+  MiddlewareConsumer,
+  Module,
+  RequestMethod,
+} from '@nestjs/common';
 import { AppController } from './app.controller';
 import { ShortLinkModule } from './short-link/short-link.module';
 import { ShortLinkService } from './short-link/short-link.service';
@@ -10,6 +15,7 @@ import { VisitService } from './visit/visit.service';
 import { StatisticModule } from './statistic/statistic.module';
 import { ConfigModule } from '@nestjs/config';
 import { HealthModule } from './health/health.module';
+import cors from 'cors';
 
 @Module({
   imports: [
@@ -37,4 +43,17 @@ import { HealthModule } from './health/health.module';
   controllers: [AppController],
   providers: [ShortLinkService, PrismaService, VisitService],
 })
-export class AppModule {}
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(
+        cors({
+          origin: [/\.rapidapi\.com$/],
+        }),
+      )
+      .forRoutes({
+        path: '/shorten-url',
+        method: RequestMethod.POST,
+      });
+  }
+}
