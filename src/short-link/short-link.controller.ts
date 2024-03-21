@@ -4,7 +4,7 @@ import { CreateShortLinkDto } from './dto/create-short-link.dto';
 import { ResultShortLinkDto } from './dto/result-short-Link.dto';
 import { ConfigService } from '@nestjs/config';
 
-@Controller('shortlinks')
+@Controller('shorten-url')
 export class ShortLinkController {
   constructor(
     private readonly shortLinkService: ShortLinkService,

@@ -10,7 +10,7 @@ import { StatisticDto } from './dto/statistic.dto';
 import { ShortLinkService } from 'src/short-link/short-link.service';
 import { FindOneStatisticsDto } from './dto/findone-statistic.dto';
 
-@Controller('statistic')
+@Controller('url-stats')
 export class StatisticController {
   constructor(
     private readonly statisticService: StatisticService,
