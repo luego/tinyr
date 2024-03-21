@@ -9,6 +9,7 @@ import { HelpersModule } from '@app/helpers';
 import { VisitService } from './visit/visit.service';
 import { StatisticModule } from './statistic/statistic.module';
 import { ConfigModule } from '@nestjs/config';
+import { HealthModule } from './health/health.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { ConfigModule } from '@nestjs/config';
     HttpModule,
     HelpersModule,
     StatisticModule,
+    HealthModule,
   ],
   controllers: [AppController],
   providers: [ShortLinkService, PrismaService, VisitService],
